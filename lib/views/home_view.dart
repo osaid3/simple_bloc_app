@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../auth/bloc/auth_bloc.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -12,7 +15,9 @@ class HomeView extends StatelessWidget {
       body: Center(
           child: TextButton(
         child: const Text('Log out'),
-        onPressed: () {},
+        onPressed: () {
+          context.read<AuthBloc>().add(const AuthEventLogout());
+        },
       )),
     );
   }

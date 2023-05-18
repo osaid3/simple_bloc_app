@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_bloc_app/auth/bloc/auth_bloc.dart';
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
@@ -12,7 +13,9 @@ class LoginView extends StatelessWidget {
       body: Center(
           child: TextButton(
         child: const Text('Log in'),
-        onPressed: () {},
+        onPressed: () {
+          context.read<AuthBloc>().add(const AuthEventLogin());
+        },
       )),
     );
   }

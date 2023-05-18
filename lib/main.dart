@@ -18,20 +18,25 @@ class HomePage extends StatelessWidget {
   const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc,AuthState>(
-        builder: (context, state) {
-          if (state is AuthStateLoggedOut) {
-            return const LoginView();
-          } else if (state is AuthStateLoggedIn) {
-            return const HomeView();
-          } else {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-        listener: (context, state) {});
+    return BlocConsumer<AuthBloc, AuthState>(builder: (context, state) {
+      if (state is AuthStateLoggedOut) {
+        return const LoginView();
+      } else if (state is AuthStateLoggedIn) {
+        return const HomeView();
+      } else {
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
+    }, listener: (context, state) {
+      if (state.loading) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Loading")));
+      } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      }
+    });
   }
 }
